@@ -10,7 +10,7 @@ void ATankPlayerController::BeginPlay()
 	ATank* ControlledTank = GetControlledTank();
 	if (ControlledTank)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Controlled Tank: %s"), *ControlledTank->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("Tank controlled by player: %s"), *ControlledTank->GetName());
 	}
 	else
 	{
