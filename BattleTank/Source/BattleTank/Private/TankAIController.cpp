@@ -7,14 +7,14 @@ void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ATank* ControlledTank = GetControlledTank();
-	if (ControlledTank)
+	ATank* PlayerTank = GetPlayerTank();
+	if (PlayerTank)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Tank controlled by AI: %s"), *ControlledTank->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("AI Controller found player tank: %s"), *PlayerTank->GetName());
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Controlled Tank could NOT be found."));
+		UE_LOG(LogTemp, Warning, TEXT("AI Controller could NOT find player tank."));
 	}
 
 }
@@ -22,4 +22,11 @@ void ATankAIController::BeginPlay()
 ATank* ATankAIController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
+}
+
+ATank* ATankAIController::GetPlayerTank() const
+{
+	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+
+	return Cast<ATank>(PlayerPawn);
 }

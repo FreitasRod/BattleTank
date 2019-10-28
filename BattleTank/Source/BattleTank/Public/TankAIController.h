@@ -2,14 +2,12 @@
 
 #pragma once
 
+#include "Engine/World.h"
 #include "Tank.h"
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController
 {
@@ -20,4 +18,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+private:
+	ATank* GetPlayerTank() const;
 };
