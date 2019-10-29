@@ -36,8 +36,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	FVector HitLocation;
 	if (GetSightRayHitLocation(HitLocation))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hit location: %s"), *HitLocation.ToString());
-		// TODO Tell controlled tank to aim at this point
+		GetControlledTank()->AimAt(HitLocation);
 	}
 }
 
@@ -50,27 +49,27 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	FVector2D ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
 
 	// "De-project" the screen position of the crosshair to a world direction
-	FVector LookDirection;
-	if (GetLookDirection(ScreenLocation, LookDirection))
+	FVector CrosshairLocation, LookDirection;
+	if (GetLookDirection(ScreenLocation, CrosshairLocation, LookDirection))
 	{
 		// Line-trace along that look direction and see what we hit (up to max range)
-		GetLookVectorHitLocation(LookDirection, HitLocation);
+		GetLookVectorHitLocation(CrosshairLocation, LookDirection, HitLocation);
 	}
 
 	return true;
 }
 
-bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
+bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& CrosshairLocation, FVector& LookDirection) const
 {
-	FVector WorldLocation; // To be discarded
-	return DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, WorldLocation, LookDirection);
+	return DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CrosshairLocation, LookDirection);
 }
 
-bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
+bool ATankPlayerController::GetLookVectorHitLocation(FVector StartLocation, FVector LookDirection, FVector& HitLocation) const
 {
 	FHitResult HitResult;
-	FVector StartLocation = PlayerCameraManager->GetCameraLocation();
+
 	FVector EndLocation = StartLocation + (LookDirection * LineTraceRange);
+
 	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility))
 	{
 		HitLocation = HitResult.Location;
