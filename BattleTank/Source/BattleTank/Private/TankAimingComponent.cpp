@@ -52,10 +52,11 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 	if (bHaveAimSolution)
 	{
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		MoveBarrelTowards(AimDirection);
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found"), Time);
+		//FVector AimDirection = OutLaunchVelocity.GetSafeNormal();
+		//auto Time = GetWorld()->GetTimeSeconds();
+		//UE_LOG(LogTemp, Warning, TEXT("OutLaunchVelocity untouched: %s"), *OutLaunchVelocity.ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("OutLaunchVelocity safe normal: %s"), *AimDirection.ToString());
+		MoveBarrelTowards(OutLaunchVelocity);
 	}
 	else
 	{
