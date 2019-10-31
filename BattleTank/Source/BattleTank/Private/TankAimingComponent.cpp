@@ -46,22 +46,13 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		false,
 		0,
 		0,
-		ESuggestProjVelocityTraceOption::DoNotTrace, // Parameter must be present to prevent bug
-		FCollisionResponseParams::DefaultResponseParam, TArray<AActor*>(), true
+		ESuggestProjVelocityTraceOption::DoNotTrace // Parameter must be present to prevent bug
 	);
 
 	if (bHaveAimSolution)
 	{
 		//FVector AimDirection = OutLaunchVelocity.GetSafeNormal();
-		//auto Time = GetWorld()->GetTimeSeconds();
-		//UE_LOG(LogTemp, Warning, TEXT("OutLaunchVelocity untouched: %s"), *OutLaunchVelocity.ToString());
-		//UE_LOG(LogTemp, Warning, TEXT("OutLaunchVelocity safe normal: %s"), *AimDirection.ToString());
 		MoveBarrelTowards(OutLaunchVelocity);
-	}
-	else
-	{
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: No aim solve found"), Time);
 	}
 	// If no solution found do nothing
 }
