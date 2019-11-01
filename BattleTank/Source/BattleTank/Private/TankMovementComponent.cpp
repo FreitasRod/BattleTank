@@ -3,3 +3,8 @@
 
 #include "TankMovementComponent.h"
 
+void UTankMovementComponent::IntendMoveForward(float Throw)
+{
+	//float Time = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %f"), Throw);
+}
