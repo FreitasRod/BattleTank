@@ -22,5 +22,8 @@ void ATankAIController::Tick(float DeltaTime)
 	// Move towards the player
 	MoveToActor(PlayerTank, AcceptanceRadius); // check whether radius is in cm
 	AimingComponent->AimAt(PlayerTank->GetActorLocation());
-	AimingComponent->Fire();
+	if (AimingComponent->GetFiringState() == EFiringState::Locked)
+	{
+		AimingComponent->Fire();
+	}
 }
