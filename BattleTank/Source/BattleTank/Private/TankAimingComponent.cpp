@@ -1,12 +1,11 @@
 // Copyright Breath Of Change Ltd.
 
+#include "TankAimingComponent.h"
 #include "BattleTank.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "Projectile.h"
 #include "Kismet/GameplayStatics.h"
-#include "TankAimingComponent.h"
-
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
